@@ -1,2 +1,2 @@
 # hs-archive
-High School ICT Performance Tasks Projects
+High School ICT Performance Task Projects
