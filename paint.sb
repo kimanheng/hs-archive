@@ -1,0 +1,159 @@
+'General Modification for GraphicsWindow
+GraphicsWindow.Title="Paint MS" 'Title
+GraphicsWindow.Width= 1250 'Start Width
+GraphicsWindow.Height= 750 'Start Height
+GraphicsWindow.BackgroundColor="white" 'Background Color
+GraphicsWindow.BrushColor="black" 'Brush Color
+GraphicsWindow.PenColor="black" 'Pen Color
+GraphicsWindow.PenWidth=pw 'Pen Width
+GraphicsWindow.MouseDown=OnMouseDown
+GraphicsWindow.MouseMove=OnMouseMove
+
+pw = 1
+
+'Command Message
+GraphicsWindow.ShowMessage("On Your Keyboard, Select the First Letter to Get the Outline/Pen Color of Your Choice __Color Buttons on the screen is for shape color __[Backspace] = Clear, [Esc] = Quit", "Commands")
+
+Reset: 
+Controls.ButtonClicked = ButtonClicked
+b1 =  Controls.AddButton("Line", 10, 50) 
+b2 =  Controls.AddButton("Ellipse", 10, 90) 
+b3 =  Controls.AddButton("Triangle", 10, 130) 
+b4 =  Controls.AddButton("Rectangle", 10, 170) 
+b5 =  Controls.AddButton("Size Up", 10, 210)
+b6 =  Controls.AddButton("Size Down", 10, 250)
+b7 =  Controls.AddButton("Thickness Up", 10, 290)
+b8 =  Controls.AddButton("Thickness Down", 10, 330)
+b9 =  Controls.AddButton("Black", 10, 10)
+b10 =  Controls.AddButton("Red", 70, 10)
+b11 =  Controls.AddButton("Blue", 130, 10)
+b12 =  Controls.AddButton("Green", 190, 10)
+b13 =  Controls.AddButton("Brown", 250, 10)
+b14 =  Controls.AddButton("Pink", 310, 10)
+b15 =  Controls.AddButton("Lime", 370, 10)
+b16 =  Controls.AddButton("Magenta", 420, 10)
+b17 =  Controls.AddButton("Orange", 490, 10)
+b18 =  Controls.AddButton("Yellow", 550, 10)
+b19 =  Controls.AddButton("Cyan", 610, 10)
+b20 =  Controls.AddButton("Purple", 660, 10)
+
+Sub ButtonClicked
+  If Controls.LastClickedButton = b1 Then
+    shape = "Line"
+  ElseIf Controls.LastClickedButton = b2 Then
+    shape = "Ellipse
+  ElseIf Controls.LastClickedButton = b3 Then
+    shape = "Triangle"
+  ElseIf Controls.LastClickedButton = b4 Then
+    shape = "Rectangle"
+  ElseIf Controls.LastClickedButton = b5 Then
+    size = size + 1
+  ElseIf Controls.LastClickedButton = b6 Then  
+    size = size - 1
+  ElseIf Controls.LastClickedButton = b7 Then 
+    pw = pw + 1
+  ElseIf Controls.LastClickedButton = b8 Then
+    pw = pw - 1
+  ElseIf Controls.LastClickedButton = b9 Then  
+    GraphicsWindow.BrushColor= "Black"
+  ElseIf Controls.LastClickedButton = b10 Then 
+    GraphicsWindow.BrushColor= "Red" 
+  ElseIf Controls.LastClickedButton = b11 Then
+    GraphicsWindow.BrushColor= "Blue"  
+  ElseIf Controls.LastClickedButton = b12 Then
+    GraphicsWindow.BrushColor= "Green"  
+  ElseIf Controls.LastClickedButton = b13 Then
+    GraphicsWindow.BrushColor= "Brown"  
+  ElseIf Controls.LastClickedButton = b14 Then 
+    GraphicsWindow.BrushColor= "Pink" 
+  ElseIf Controls.LastClickedButton = b15 Then 
+    GraphicsWindow.BrushColor= "Lime" 
+  ElseIf Controls.LastClickedButton = b16 Then
+    GraphicsWindow.BrushColor= "Magenta"  
+  ElseIf Controls.LastClickedButton = b17 Then  
+    GraphicsWindow.BrushColor= "Orange"
+  ElseIf Controls.LastClickedButton = b18 Then
+    GraphicsWindow.BrushColor= "Yellow"  
+  ElseIf Controls.LastClickedButton = b19 Then  
+    GraphicsWindow.BrushColor= "Cyan"
+  ElseIf Controls.LastClickedButton = b20 Then  
+    GraphicsWindow.BrushColor= "Purple"
+  EndIf
+EndSub
+
+GraphicsWindow.KeyDown = OnKeyDown 'Keyboard Input
+Sub OnKeyDown 'Keyboard Command
+  Key = GraphicsWindow.LastKey
+  If Key = "Back" Then
+    GraphicsWindow.Clear()
+    Goto reset
+  Endif
+  If Key = "R" Then
+    GraphicsWindow.PenColor = "Red"
+  Endif
+  If Key = "W" Then
+    GraphicsWindow.PenColor = "White"
+  Endif
+  If Key = "B" Then
+    GraphicsWindow.PenColor = "Blue"
+  Endif
+  If Key = "G" Then
+    GraphicsWindow.PenColor = "Green"
+  Endif
+  If Key = "P" Then
+    GraphicsWindow.PenColor = "Purple"
+  Endif
+  If Key = "Y" Then
+    GraphicsWindow.PenColor = "Yellow"
+  Endif
+  If Key = "O" Then
+    GraphicsWindow.PenColor = "Orange"
+  Endif
+  If Key = "M" Then
+    GraphicsWindow.PenColor = "Magenta"
+  Endif
+  If Key = "L" Then
+    GraphicsWindow.PenColor = "Lime"
+  Endif
+  If Key = "C" Then
+    GraphicsWindow.PenColor = "Cyan"
+  EndIf 
+  If Key = "S" Then
+    GraphicsWindow.PenColor = "SaddleBrown
+  Endif
+  If Key = "Escape" Then 
+    Program.Delay(1200)
+    Program.End()
+  EndIf
+EndSub
+
+Sub OnMouseDown
+  prevx = GraphicsWindow.MouseX
+  prevy = GraphicsWindow.MouseY
+EndSub
+
+size = 25
+
+Sub OnMouseMove
+  If Mouse.IsLeftButtonDown Or Mouse.IsRightButtonDown Then
+    x = GraphicsWindow.MouseX
+    y = GraphicsWindow.MouseY
+    if shape = "Ellipse" then
+      GraphicsWindow.DrawEllipse(x,y,size,size)
+      GraphicsWindow.FillEllipse(x,y,size,size)
+      
+    ElseIf shape = "Rectangle" then
+      GraphicsWindow.DrawRectangle(x,y,size,size)
+      GraphicsWindow.FillRectangle(x,y,size,size)
+      
+    ElseIf shape = "Line" then
+      GraphicsWindow.DrawLine(prevX,prevY,x,y)
+      
+    ElseIf shape = "Triangle" then
+      GraphicsWindow.DrawTriangle(x,y,x+size,y+size,x-size,y+size)
+      GraphicsWindow.FillTriangle(x,y,x+size,y+size,x-size,y+size)
+    EndIf
+  EndIf
+  prevx = x
+  prevy = y
+EndSub
