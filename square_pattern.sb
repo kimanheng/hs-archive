@@ -1,0 +1,60 @@
+Textwindow.write("Background Color: ") 'Ask user to put background color they want
+background_color=textwindow.read() 'User Input in Text
+
+Textwindow.writeline("How many row do you want to draw?") 'Ask user how many row they want
+rows=textwindow.readnumber() 'User Input in Number
+
+Textwindow.write("Square Side Length: ") 'Ask user how big the square is 
+square_side=textwindow.readnumber() 'User Input in Number
+
+Textwindow.write("Screen Padding: ") 'Ask user for screen padding as to make it look nice
+padding=textwindow.readnumber() 'User Input in Number
+
+TextWindow.Write("Line Color: ") 'Ask user for line color
+pen_color=TextWindow.Read() 'User Input in Text
+
+Textwindow.write("Square Color: ") 'Ask user for Square color
+square_color=textwindow.read() 'User Input in Text
+
+TextWindow.Write("Turtle Speed: ") 'Ask user how fast the turtle would be
+speed=TextWindow.ReadNumber() 'User Input in Number **(turtle movement impact the speed of the result)
+
+'Apply User Input into Output data using GraphicsWindow
+GraphicsWindow.height = square_side*rows+padding*2 'Appropriate Height and Width
+GraphicsWindow.width = GraphicsWindow.height 'Square shaped GraphicsWindow
+GraphicsWindow.BackgroundColor=background_color 'Apply Background Color
+GraphicsWindow.BrushColor=square_color 'Apply Square Color to Brush
+GraphicsWindow.PenColor = pen_color 'Apply Pen(Line) Color
+
+Turtle.Speed=speed 'Turtle Speed
+Turtle.X = padding 'Initial X Location
+Turtle.Y = padding 'Initial Y Location
+
+'Major loop... contain Minor loop (draw command), and command to move between rows
+For x=1 To rows
+  Turtle.Turn(180)
+  Turtle.Move(square_side)
+  Turtle.Turn(180)
+  
+  'This loop make square pattern
+  For e = 1 To x
+    'These commands draw the sqaures
+    Turtle.Move(square_side)
+    Turtle.TurnRight()
+    Turtle.Move(square_side*e)
+    Turtle.TurnRight()
+    Turtle.Move(square_side)
+    Turtle.TurnRight()
+    Turtle.Move(square_side*e)
+    
+    'the three row of commands below fill in the squares  
+    sx = Turtle.X 'Get current X location
+    sy = Turtle.y - square_side 'Get current Y location - size, to find the top part
+    GraphicsWindow.FillRectangle(sx,sy,square_side*e,square_side) 'Fill the color into drawn Square
+    '--------------------------------------
+    
+    'This is belong to the pattern commands to draw 
+    'I put it here to make it look more fluid.    
+    Turtle.TurnRight()
+  EndFor  
+EndFor
